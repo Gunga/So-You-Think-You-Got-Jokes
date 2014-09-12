@@ -28,6 +28,9 @@ GEM
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.12.0)
     sqlite3 (1.3.7)
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
+    tins (1.3.2)
     tzinfo (0.3.35)
 
 PLATFORMS
@@ -38,3 +41,4 @@ DEPENDENCIES
   faker
   rspec
   sqlite3
+  term-ansicolor (~> 1.3.0)
