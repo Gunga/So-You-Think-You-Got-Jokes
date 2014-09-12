@@ -1,3 +1,3 @@
-class punchline < ActiveRecord::Base
+class Punchline < ActiveRecord::Base
   belongs_to :joke
 end
