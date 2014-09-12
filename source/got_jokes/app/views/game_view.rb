@@ -22,6 +22,7 @@ ___________________________________
     1-Start Game
     2-Quit
     INTRO
+    say("So you think you got jokes? Welcome!")
     input = get_choice
   end
 
@@ -29,6 +30,7 @@ ___________________________________
     clear
     prompt_joke(joke.description)
     display_punchlines(joke.punchlines)
+    say(joke.description)
     get_choice
   end
 
@@ -59,8 +61,10 @@ ___________________________________
   def self.display_result(result)
     if result=="correct"
       puts "AWESOME! GET READY FOR ANOTHER"
+      play('laughter.mp3', 4)
     else
       puts "WRONG!!! YOU LOSE POINTS"
+      play('crickets.mp3', 4)
     end
   end
 
@@ -77,6 +81,7 @@ ___________________________________
     YOU SHOULD CONSIDER A CAREER IN
     THIS AND QUIT CODING!
     WIN
+    say("YOU ARE THE BEST JOKER AROUND! YOU SHOULD CONSIDER A CAREER IN THIS AND QUIT CODING!")
   end
 
   def self.lose_message
@@ -86,6 +91,7 @@ ___________________________________
     THANK GOD YOU KNOW HOW TO CODE.
     YOU WOULD DIE AS A COMEDIAN!!
     LOSE
+    say("THANK GOD YOU KNOW HOW TO CODE. YOU WOULD DIE AS A COMEDIAN!!")
   end
 
   def self.quit_message
@@ -127,5 +133,14 @@ ___________________________________
   def self.clear
     print "\e[2J"
     print "\e[H"
+  end
+
+  def self.say(words)
+    `say #{words}`
+  end
+
+  def self.play(file, seconds)
+    laughter_path  = APP_ROOT.join('app', 'assets', file).to_s
+    `afplay -t #{seconds} #{laughter_path}`
   end
 end
