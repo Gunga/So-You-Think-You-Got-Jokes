@@ -1,7 +1,7 @@
 require_relative '../../config/application'
 require 'term/ansicolor'
 
-class GameView < ActiveRecord::Base
+class GameView
   @@c = Term::ANSIColor
   def self.intro
     clear
