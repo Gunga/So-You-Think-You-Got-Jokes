@@ -71,6 +71,7 @@ ___________________________________
 
   def self.win_message
     clear
+    puts @@c.green
     puts <<-WIN
     YOU ARE THE BEST JOKER AROUND!
     YOU SHOULD CONSIDER A CAREER IN
@@ -80,6 +81,7 @@ ___________________________________
 
   def self.lose_message
     clear
+    puts @@c.red
     puts <<-LOSE
     THANK GOD YOU KNOW HOW TO CODE.
     YOU WOULD DIE AS A COMEDIAN!!
@@ -94,6 +96,32 @@ ___________________________________
     THIS THING ISN'T FOR EVERYONE.
     GOOD BYE!
     QUIT
+  end
+
+  def self.invalid_response
+    clear
+    puts @@c.cyan
+    puts <<-INVALID
+    ARE YOU KIDDING ME?
+
+    THAT'S NOT EVEN AN
+    OPTION!!!!!
+
+    INVALID
+  end
+
+  def self.call_engineer
+    clear
+    puts @@c.red
+    puts <<-CALL_MESSAGE
+    THE ENGINEERS DIDN'T MAKE ENOUGH
+    JOKES TO DEAL WITH SUCH A PERSISTENT
+    USER SUCH AS YOURSELF. PLEASE CALL
+    YOUR ENGINEER AND COMPLAIN ENDLESSLY.
+    ALTERNATIVELY CALL THE IMMIGRATION OFFICE
+    AND DEPORT THE ENGINEER.
+
+    CALL_MESSAGE
   end
 
   def self.clear

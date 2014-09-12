@@ -6,6 +6,7 @@ class GameController
     first_choice = GameView.intro
     @@game_over = false
     @@game_score = 5
+    @@all_jokes = Joke.all.to_a
 
     if first_choice == "1"
       until @@game_over do
@@ -17,8 +18,10 @@ class GameController
         sleep(3)
         check_score
       end
-    else
+    elsif first_choice == "2"
       GameView.quit_message
+    else
+      run
     end
   end
 
@@ -42,7 +45,12 @@ class GameController
   end
 
   def self.select_random_joke
-    @@current_joke = Joke.all.sample
+    unless @@all_jokes.empty?
+      @@current_joke = @@all_jokes.shuffle!.pop
+    else
+      GameView.call_engineer
+      exit!
+    end
   end
 
   def self.check_user_response(input)
@@ -50,12 +58,15 @@ class GameController
       @@game_over = true
       GameView.quit_message
       exit!
-    else
+    elsif input == "1" || input == "2"
       @@game_score += @@current_joke.punchlines[input.to_i-1].score
 
       unless @@current_joke.punchlines[input.to_i-1].score <= 0
         @@result = "correct"
       end
+    else
+      GameView.invalid_response
+      @@game_score -= 2
     end
   end
 
