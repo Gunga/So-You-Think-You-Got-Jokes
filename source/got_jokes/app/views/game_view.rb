@@ -40,8 +40,8 @@ ___________________________________
   def self.display_punchlines(punchlines)
     puts @@c.blue <<-CHOICES
 ___________________________________
-1- #{punchlines.first}
-2- #{punchlines.last}
+1- #{punchlines.first.description}
+2- #{punchlines.last.description}
 ___________________________________
     CHOICES
   end
@@ -68,17 +68,9 @@ ___________________________________
     puts "Current Score: #{score}"
   end
 
-  def self.outcome
-    if winner
-      win_message
-    elsif loser
-      lose_message
-    else
-      quit_message
-    end
-  end
 
   def self.win_message
+    clear
     puts <<-WIN
     YOU ARE THE BEST JOKER AROUND!
     YOU SHOULD CONSIDER A CAREER IN
@@ -87,6 +79,7 @@ ___________________________________
   end
 
   def self.lose_message
+    clear
     puts <<-LOSE
     THANK GOD YOU KNOW HOW TO CODE.
     YOU WOULD DIE AS A COMEDIAN!!
@@ -94,6 +87,8 @@ ___________________________________
   end
 
   def self.quit_message
+    clear
+    puts @@c.red
     puts <<-QUIT
     CAN'T TAKE THE PRESSURE?
     THIS THING ISN'T FOR EVERYONE.

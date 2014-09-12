@@ -3,21 +3,36 @@ require_relative '../../config/application'
 class GameController
 
   def self.run
-    GameView.intro
+    first_choice = GameView.intro
     @@game_over = false
+    @@game_score = 5
 
-    until @@game_over do
-      selected_joke = select_random_joke
-      GameView.prompt(selected_joke)
-      check_user_response
-      GameView.display_feedback(result, score)
+    if first_choice == "1"
+      until @@game_over do
+        @@result = "wrong"
+        selected_joke = select_random_joke
+        input = GameView.prompt(selected_joke)
+        check_user_response(input)
+        GameView.display_feedback(@@result, @@game_score)
+        sleep(3)
+        check_score
+      end
+    else
+      GameView.quit_message
     end
-
-      GameView.outcome
   end
 
+  def self.check_score
+    if @@game_score < 1
+      @@game_over = true
+      GameView.lose_message
+    elsif @@game_score > 9
+      @@game_over = true
+      GameView.win_message
+    end
+  end
 
-  def game_over
+  def self.game_over
     @@game_over
     # equals to false unless
     # game_over is true if:
@@ -26,17 +41,22 @@ class GameController
     #   user score reached minimum (0)
   end
 
-  def select_random_joke
-    # select_random_joke
-    #   Joke.find
-    # get_corresponding_punchlines
-    #   Punchline.find_by_joke_id
-    Joke.all.sample
+  def self.select_random_joke
+    @@current_joke = Joke.all.sample
   end
 
-  def check_user_response
-    # check if punchline is correct
-    # apply result to total_score
+  def self.check_user_response(input)
+    if input == "quit"
+      @@game_over = true
+      GameView.quit_message
+      exit!
+    else
+      @@game_score += @@current_joke.punchlines[input.to_i-1].score
+
+      unless @@current_joke.punchlines[input.to_i-1].score <= 0
+        @@result = "correct"
+      end
+    end
   end
 
 end
